@@ -293,17 +293,16 @@ export const PROVIDER_DEFINITIONS: Record<string, ProviderDefinition> = {
     id: 'google',
     name: 'Google',
     description: "Google's Gemini models",
-    defaultModel: 'gemini-2.5-pro',
+    defaultModel: 'gemini-1.5-pro-latest',
     modelPatterns: [/^gemini/],
     icon: GeminiIcon,
     models: [
       {
-        id: 'gemini-2.5-pro',
+        id: 'gemini-1.5-pro-latest',
         pricing: {
-          input: 0.15,
-          cachedInput: 0.075,
-          output: 0.6,
-          updatedAt: '2025-06-17',
+          input: 7.0,
+          output: 21.0,
+          updatedAt: '2024-05-15',
         },
         capabilities: {
           temperature: { min: 0, max: 2 },
@@ -311,12 +310,11 @@ export const PROVIDER_DEFINITIONS: Record<string, ProviderDefinition> = {
         },
       },
       {
-        id: 'gemini-2.5-flash',
+        id: 'gemini-1.5-flash-latest',
         pricing: {
-          input: 0.15,
-          cachedInput: 0.075,
-          output: 0.6,
-          updatedAt: '2025-06-17',
+          input: 0.7,
+          output: 2.1,
+          updatedAt: '2024-05-15',
         },
         capabilities: {
           temperature: { min: 0, max: 2 },

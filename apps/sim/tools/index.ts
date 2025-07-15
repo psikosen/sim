@@ -1,5 +1,6 @@
 import { env } from '@/lib/env'
 import { createLogger } from '@/lib/logs/console-logger'
+import { gemini } from './gemini'
 import type { OAuthTokenPayload, ToolConfig, ToolResponse } from './types'
 import { formatRequestParams, getTool, getToolAsync, validateToolRequest } from './utils'
 

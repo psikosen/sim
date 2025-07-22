@@ -7,6 +7,7 @@ import { TelemetryConsentDialog } from '@/app/telemetry-consent-dialog'
 import './globals.css'
 
 import { ZoomPrevention } from './zoom-prevention'
+import { PromptQueueManager } from './prompt-queue-manager'
 
 const logger = createLogger('RootLayout')
 
@@ -225,6 +226,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body suppressHydrationWarning>
         <ZoomPrevention />
         <TelemetryConsentDialog />
+        <PromptQueueManager />
         {children}
         <SpeedInsights />
         <Analytics />

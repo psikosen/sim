@@ -52,7 +52,18 @@ export class AgentBlockHandler implements BlockHandler {
 
     this.logRequestDetails(providerRequest, messages, streamingConfig)
 
-    return this.executeProviderRequest(providerRequest, block, responseFormat, context)
+    const { usePromptQueueStore } = await import('@/stores/prompt-queue/store')
+
+    return new Promise((resolve, reject) => {
+      usePromptQueueStore.getState().addToQueue({
+        providerRequest,
+        block,
+        responseFormat,
+        context,
+        resolve,
+        reject,
+      })
+    })
   }
 
   private parseResponseFormat(responseFormat?: string | object): any {
@@ -391,7 +402,7 @@ export class AgentBlockHandler implements BlockHandler {
     })
   }
 
-  private async executeProviderRequest(
+  public async executeProviderRequest(
     providerRequest: any,
     block: SerializedBlock,
     responseFormat: any,

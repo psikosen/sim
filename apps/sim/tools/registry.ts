@@ -25,6 +25,7 @@ import {
   githubRepoInfoTool,
 } from './github'
 import { gmailDraftTool, gmailReadTool, gmailSearchTool, gmailSendTool } from './gmail'
+import { gemini } from './gemini'
 import { searchTool as googleSearchTool } from './google'
 import {
   googleCalendarCreateTool,
@@ -230,4 +231,5 @@ export const tools: Record<string, ToolConfig> = {
   wealthbox_write_task: wealthboxWriteTaskTool,
   wealthbox_read_note: wealthboxReadNoteTool,
   wealthbox_write_note: wealthboxWriteNoteTool,
+  gemini: gemini,
 }

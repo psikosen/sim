@@ -42,7 +42,6 @@ export const ollamaProvider: ProviderConfig = {
   },
 
   executeRequest: async (request: ProviderRequest): Promise<ProviderResponse> => {
-    console.log(request)
     logger.info('Preparing Ollama request', {
       model: request.model,
       hasSystemPrompt: !!request.systemPrompt,
@@ -83,7 +82,7 @@ export const ollamaProvider: ProviderConfig = {
       const payload: any = {
         model: request.model,
         messages: allMessages,
-        stream: false,
+        stream: request.stream,
       }
 
       // Add optional parameters
@@ -122,6 +121,27 @@ export const ollamaProvider: ProviderConfig = {
             toolChoice: 'auto', // Ollama always uses auto
             model: request.model,
           })
+        }
+      }
+
+      if (request.stream) {
+        const stream = await ollama.chat.completions.create(payload)
+        const readableStream = new ReadableStream({
+          async start(controller) {
+            for await (const chunk of stream) {
+              const content = chunk.choices[0]?.delta?.content || ''
+              if (content) {
+                controller.enqueue(new TextEncoder().encode(content))
+              }
+            }
+            controller.close()
+          },
+        })
+        return {
+          ...new Response(readableStream),
+          content: '',
+          model: request.model,
+          tokens: { prompt: 0, completion: 0, total: 0 },
         }
       }
 
